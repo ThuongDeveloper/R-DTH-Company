@@ -14,7 +14,7 @@ Email: r-dth@gmail.com
 
 Password: 123123123
 
-## Install guide
+## Installation guide
 
 Open Microsoft SQL Server Management Studio (SSMS) and run the attachment R-DTH.sql to create a database named ProjectSEM3 with available data.
 
