@@ -1,0 +1,256 @@
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<!-- Basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Site Metas -->
+<title>QuickCloud - Hosting Responsive HTML5 Template</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Site Icons -->
+@*<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />*@
+<link rel="shortcut icon" href="/img/R-DTH_favicon.png" type="image/x-icon" />
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+<!-- Site CSS -->
+<link rel="stylesheet" href="/public/style.css">
+<!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="/public/css/versions.css">
+<!-- Responsive CSS -->
+    <link rel="stylesheet" href="/public/css/responsive.css">
+<!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/custom.css">
+
+
+    <script src="/public/js/modernizer.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+   
+   @* <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->*@
+</head>
+
+<style>
+.top-navbar .bg-light{
+padding-top:0px;
+padding-bottom:0px;
+}
+#footer-body{
+    margin-right: -170px !important;
+    margin-left: -170px !important;
+}
+</style>
+<body class="host_version">
+
+     <!-- Modal-Recharge -->
+    <div class="modal fade" id="recharge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header tit-up">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Recharge</h4>
+                </div>
+                <div class="modal-body customer-box">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li><a class="active" href="#Login" data-toggle="tab">Recharge</a></li>
+                        
+                    </ul>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+   
+             
+   
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="progress-br float shadow">
+                <div class="progress__item"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END LOADER -->
+    <!-- Start header -->
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img src="/img/R-DTH.png" width="200" alt="" style="margin-left:2rem" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbars-host">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                       
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "SetUpBox" ? "active" : "")"><a class="nav-link" asp-controller="SetUpBox" asp-action="Index">Set-up Box</a></li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Package" ? "active" : "")"><a class="nav-link" asp-controller="Package" asp-action="Index">Package </a></li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Movie" ? "active" : "")"><a class="nav-link" asp-controller="Movie" asp-action="Index">Movie Booking</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Other </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a">
+
+                                <a class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "AboutUs" ? "active" : "")" asp-controller="AboutUs" asp-action="Index">About Us</a>
+                       
+                                <a class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "CustomerCare" ? "active" : "")" asp-controller="CustomerCare" asp-action="Index">Customer Care</a>
+                                <a class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Contact" ? "active" : "")" asp-controller="Contact" asp-action="Index">Contact</a>
+                           
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link"  asp-controller="Faq" asp-action="Index">F.A.Q</a></li>
+                    </ul>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                         
+                  
+                       
+
+
+
+                        @if (!string.IsNullOrEmpty(User.Identity.Name))
+                        {
+                            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                            string role = User.FindFirst(ClaimTypes.Role)?.Value;
+                            @if (role.Equals("customer"))
+                            {
+                                <li style="margin-right:10px"><a class="hover-btn-new log" asp-action="Index" asp-controller="Recharge" asp-route-id="@userId"><span>Recharge</span></a></li>
+                                <li><a class="hover-btn-new log" href="/UserAuthentication/DetailCustomer" ><span>User</span></a></li>
+                            <li><a class="hover-btn-new log" asp-controller="UserAuthentication" asp-action="Logout"><span>Logout</span></a></li>
+                            }else if (role.Equals("dealer")){
+                                <li><a class="hover-btn-new log" asp-controller="MainAdmin" asp-action="Index" asp-area="Admin" ><span>Dealer</span></a></li>
+                            <li><a class="hover-btn-new log" asp-controller="UserAuthentication" asp-action="Logout"><span>Logout</span></a></li>
+                            }else{
+                                <li><a class="hover-btn-new log" asp-controller="MainAdmin" asp-action="Index" asp-area="Admin" ><span>Admin</span></a></li>
+                                <li><a class="hover-btn-new log" asp-controller="UserAuthentication" asp-action="Logout"><span>Logout</span></a></li>
+                            }
+                        
+                        }else{
+                              <li style="margin-right:10px"><a class="hover-btn-new log" asp-action="Index" asp-controller="Recharge" ><span>Recharge</span></a></li>
+                            <li><a class="hover-btn-new log" href="/UserAuthentication/Login" ><span>Login</span></a></li>
+
+                        }
+                     
+                      
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+
+
+     
+            @RenderBody()
+   
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="row" id="footer-body" style="justify-content:center">
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>About US</h3>
+                        </div>
+                        <p> R-DTH is the first to have adopted the advanced MPEG-4 technology that offers better compression and signal quality. It is also the first to have offered High Definition (HD) content, for a whole new television viewing experience.</p>
+                        <p> Today, R-DTH has spreaded rapidly all over the country and offers the best entertainment value in regional content coupled with advanced yet affordable products like set top boxes with USB recordings.</p>
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>Information Link</h3>
+                        </div>
+                        <ul class="footer-links">
+                            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="SetUpBox" asp-action="Index">Set-up Box</a></li>
+                            <li><a asp-controller="Package" asp-action="Index">Package</a></li>
+                            <li><a asp-controller="Movie" asp-action="Index">Movie Booking</a></li>
+                            <li><a asp-controller="Faq" asp-action="Index">Faq</a></li>
+                            <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+                        </ul><!-- end links -->
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </footer><!-- end footer -->
+
+    <div class="copyrights">
+        <div class="container">
+            <div class="footer-distributed">
+                <div class="footer-left">
+                    <p class="footer-company-name" style="color:aliceblue">Established R-DTH Company &copy; 2023</p>
+                </div>
+
+                <div class="footer-right">
+                    <ul class="footer-links-soi">
+                        <li><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a target="_blank" href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+                        <li><a target="_blank" href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+                    </ul><!-- end links -->
+                </div>
+            </div>
+        </div><!-- end container -->
+    </div><!-- end copyrights -->
+
+    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="/public/js/all.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="/public/js/custom.js"></script>
+    <script src="/public/js/timeline.min.js"></script>
+
+ 
+    <script>
+        timeline(document.querySelectorAll('.timeline'), {
+            forceVerticalMode: 700,
+            mode: 'horizontal',
+            verticalStartPosition: 'left',
+            visibleItems: 4
+        });
+    </script>
+   @* <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+
+        window.onbeforeunload = function (e) {
+            localStorage.setItem('scrollpos', window.scrollY);
+        };
+    </script>*@
+   
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false) 
+  
+</body>
+</html>

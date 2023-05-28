@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Project.Models.Feedback>
+@{
+    ViewData["Title"] = "FeedBack";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    table i{
+       font-size:17px;
+        color: #9dc15b;
+     
+    }
+
+    td a{
+        margin-bottom:5px;
+    }
+</style>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 text-center mt-5 mb-4 setup_title">Feed Back</h1>
+   
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Star</th>
+                            <th>Content</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Star</th>
+                         <th>Content</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                              <td>@item.GetCustomer.ApplicationUser.UserName</td>
+                              <td>@item.type</td>
+                                <td style="width:100px;">
+                                    @for(int i = 0; i < @item.star;i++){
+                                        <i class="fa fa-star"></i>
+                                }</td>
+
+                                @if (item.content.Length > 80)
+                                {
+                                    item.content = item.content.Substring(0, 80) + "...";
+
+                                }
+                              
+
+                               <td>@item.content</td>
+                              <td>@item.date</td>
+                              
+                                <td>
+                                  
+                                    <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info" style="padding: 0.3rem 0.3rem !important">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-danger" style="padding: 0.3rem 0.3rem !important" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                 
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+        <script type="text/javascript" src="/AssetAdmin/js/demo/datatables-demo.js"></script>
+}

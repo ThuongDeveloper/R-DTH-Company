@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Project.Models.Package>
+@{
+    string? a = "-12";
+
+    if(Model.Count() / 2 == 1 && Model.Count() % 2 == 0){
+        a = "-6";
+    }else if(Model.Count() % 3 == 0 ){
+        a = "-4";
+    }else if (Model.Count() % 4 == 0){
+        a = "-3";
+    }
+    else if (Model.Count() % 5 == 0){
+        a = null;
+    }
+    a = "col-md" + a;
+
+    string thongBao = TempData["thongBaoPackage"] as String;
+}
+
+<div class="all-title-box">
+    <div class="container text-center">
+        <h1>Package<span class="m_1">"Unwrap convenience, experience simplicity"</span></h1>
+    </div>
+</div>
+
+<div id="pricing" class="section lb">
+        <div class="container">
+        @if (thongBao != null)
+        {
+
+            <div class="alert alert-success" role="alert">
+                @thongBao
+            </div>
+
+        }
+
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="message-box">
+                        <ul class="nav nav-pills nav-stacked" id="myTabs">
+                        <li style="width:100%;"><a class="active" href="#tab1" data-toggle="pill">Monthly Subscription</a></li>
+                          
+                        </ul>
+                    </div>
+                </div><!-- end col -->
+            </div>
+
+            <hr class="invis">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="tab-pane active fade show" id="tab1">
+                            <div class="row text-center">
+                                @foreach (var item in Model)
+                                {
+                                    if (item.status == true)
+                                    {
+                                        <div class="@a" style="margin-bottom:1rem">
+                                            <div class="pricing-table pricing-table-highlighted">
+                                                <div class="pricing-table-header grd1">
+                                                    <h2>@item.name</h2>
+                                                    <h3>@item.price$/@item.duration month</h3>
+                                                </div>
+
+                                                <div class="pricing-table-space"></div>
+                                                <div class="pricing-table-features">
+
+                                                    <p> <strong>@item.details</strong></p>
+
+                                                </div>
+                                                <div class="pricing-table-sign-up">
+                                                    <a asp-controller="CustomerOrder" asp-action="PackageOrder" asp-route-id="@item.id" class="hover-btn-new"><span>Order Now</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                            </div><!-- end row -->
+                        </div><!-- end pane -->
+
+                        <div class="tab-pane fade" id="tab2">
+                        <div class="row text-center">
+                            @foreach (var item in Model)
+                            {
+                                if (item.status == true)
+                                {
+                                    <div class="col-md-12" style="margin-bottom:1rem">
+                                        <div class="pricing-table pricing-table-highlighted">
+                                            <div class="pricing-table-header grd1">
+                                                <h2>@item.name</h2>
+                                                <h3>@item.price</h3>
+                                            </div>
+
+                                            <div class="pricing-table-space"></div>
+                                            <div class="pricing-table-features">
+                                                <p><i class="fa fa-calendar"></i> <strong>@item.duration</strong> Duration</p>
+                                                <p><i class="fa fa-edit"></i> <strong>@item.details</strong> Details</p>
+                                                <p><i class="fa fa-barcode"></i> <strong>@item.status</strong> Status</p>
+                                            </div>
+                                            <div class="pricing-table-sign-up">
+                                                <a href="#" class="hover-btn-new"><span>Order Now</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                        </div><!-- end row -->
+                        </div><!-- end pane -->
+                    </div><!-- end content -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+
+<div class="parallax section dbcolor">
+    <div class="container">
+        <div class="row logos">
+            <div class="col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
+                <a href="#"><img src="./public/images/logo_01.png" alt="" class="img-repsonsive"></a>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
+                <a href="#"><img src="./public/images/logo_02.png" alt="" class="img-repsonsive"></a>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
+                <a href="#"><img src="./public/images/logo_03.png" alt="" class="img-repsonsive"></a>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
+                <a href="#"><img src="./public/images/logo_04.png" alt="" class="img-repsonsive"></a>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
+                <a href="#"><img src="./public/images/logo_05.png" alt="" class="img-repsonsive"></a>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
+                <a href="#"><img src="./public/images/logo_06.png" alt="" class="img-repsonsive"></a>
+            </div>
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end section -->

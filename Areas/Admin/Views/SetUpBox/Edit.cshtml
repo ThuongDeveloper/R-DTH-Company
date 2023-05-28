@@ -1,0 +1,97 @@
+﻿@model Project.Models.SetUpBox
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .set_up_box_edit_form{
+        margin-left: 15% !important;
+        background-color: white;
+        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important;
+        width: 880px !important;
+        padding: 50px;
+        border-radius: 10px;
+        margin-bottom: 50px;
+    }
+
+    .input_group{
+        min-width: 770px !important;
+    }
+
+    .custom-file {
+        min-width: 770px !important;
+    }
+
+    .form-group {
+        font-weight: bold;
+    }
+</style>
+
+<h1 class="text-center mt-5 mb-5">Update Set-Up-Box</h1>
+
+<div class="set_up_box_edit_form">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" enctype="multipart/form-data" method="post" asp-controller="SetUpBox">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="id" />
+                
+                <div class="form-group">
+                    <label asp-for="name" class="control-label">Name</label>
+                    <input asp-for="name" required id="name" class="form-control input_group" />
+                    <span asp-validation-for="name" id="name_error" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="details" class="control-label">Details</label>
+                    <input asp-for="details" id="details" required class="form-control input_group" />
+                    <span asp-validation-for="details" id="details_error" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+
+                    <label>Current Image</label><br />
+                    @if(Model.img != null){
+                        <img src="@Model.img" width="80" />
+                    }
+                    else{
+                        <img src="@Model.img" width="80" />
+                    }
+
+                   
+                 
+                </div>
+                <label asp-for="img" class="control-label">Upload Image</label>
+                <div class="form-group custom-file">
+                    <label asp-for="img" class="custom-file-label">Choose file...</label>
+                    <input asp-for="img" name="file" type="file" accept="image/jpg, image/png, image/jpeg, image/gif" id="file" onchange="document.getElementById('Image').src = window.URL.createObjectURL(this.files[0])" class="form-control input_group custom-file-input" />
+                    <span asp-validation-for="img" class="text-danger"></span>
+                </div>
+
+                <img src="" id="Image" width="100"/>
+               
+                <div class="form-group">
+                    <label asp-for="price" class="control-label">Price</label>
+                    <input asp-for="price" id="price" required min="100" max="1000" class="form-control input_group" />
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-warning" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+

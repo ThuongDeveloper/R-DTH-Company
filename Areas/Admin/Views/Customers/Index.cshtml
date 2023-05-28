@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Project.Models.Customer>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+	.card_head {
+		display: flex !important;
+		justify-content: space-between !important;
+	}
+
+	.setup_title {
+		font-size: 40px !important;
+	}
+
+
+</style>
+
+<div class="container-fluid">
+
+	<!-- Page Heading -->
+	<h1 class="h2 mb-2 text-gray-800 text-center">Customer List</h1>
+
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+		
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Username</th>
+					
+							<th>Package</th>
+							<th>Sub Date</th>
+							<th>Date Left</th>
+							<th>State</th>
+							<th style="width:20px;">Pay/Month</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tfoot>
+						<tr>
+							<th>User Name</th>
+						
+							<th>Package</th>
+							<th>Sub Date</th>
+							<th>Date Left</th>
+							<th>State</th>
+							<th style="width:20px;">Pay/Month</th>
+							<th>Action</th>
+						</tr>
+					</tfoot>
+
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+						<td>@item.ApplicationUser.UserName</td>
+							@if (item.package != null)
+							{
+							<td>@item.package.name</td>
+							}
+							else
+							{
+							<td></td>
+							}
+
+						<td style="width:100px;">@item.services_sub_date</td>
+						<td style="width:100px;">@item.date_left</td>
+							@if (item.statePackage == true)
+							{
+							<td class="text text-success"> Valid
+							</td>
+							
+							}
+							else if(item.statePackage == false)
+							{
+									<td class="text text-danger">  Invalid</td>
+								
+							}else{
+								<td class="text text-warning">Not Subscribed</td>
+							}
+
+							@if(item.payment_monthly != null){
+									<td>@item.payment_monthly $</td>
+							}else{
+									<td>@item.payment_monthly</td>
+							}
+					
+
+								@if (item.statePackage == true){
+									<td>
+										<a class="btn btn-info" asp-controller="Customers" asp-action="Details" asp-route-id="@item.id">Details</a>
+										<a asp-action="ChangeToInvalid" asp-route-id="@item.id"><button onclick="return confirm('Are you sure change to Invalid')" class="btn btn-danger">Change</button></a>
+
+									</td>
+
+								}else if(item.statePackage == false){
+									<td>
+										<a class="btn btn-info" asp-controller="Customers" asp-action="Details" asp-route-id="@item.id">Details</a>
+										<a asp-action="ChangeToValid" asp-route-id="@item.id"><button onclick="return confirm('Are you sure change to Valid?')" class="btn btn-danger">Change</button></a>
+										</td>
+								}else{
+									<td><a class="btn btn-info" asp-controller="Customers" asp-action="Details" asp-route-id="@item.id">Details</a></td>
+								}
+				
+							</tr>
+						}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+@section Scripts {
+	<script type="text/javascript" src="/AssetAdmin/js/demo/datatables-demo.js"></script>
+}

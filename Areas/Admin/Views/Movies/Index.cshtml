@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Project.Models.Movie>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .setup_title{
+        font-size:50px;
+    }
+</style>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 text-center mt-5 mb-4 setup_title">Movie </h1>
+ 
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 card_head">
+        
+            <a asp-action="Create" class="btn btn-primary">Create Movie </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                    <thead>
+                        <tr>
+                   
+                            <th>Name</th>
+                            <th>Content</th>
+                            <th>Img</th>
+                            <th>Price</th>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Content</th>
+                            <th>Img</th>
+                            <th>Price</th>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                               
+                                <td>@item.name</td>
+                              
+                                <td>@item.content</td>
+                                <td><img style="width:100px"src="@item.img" /></td>
+                                <td>@item.price</td>
+                                <td>@item.movie_Cate.name</td>
+                                <td style="width:150px">
+                                    <a asp-action="Edit" asp-controller="Movies" asp-route-id="@item.id"><button class="btn btn-warning">Edit</button></a>
+                                    <a asp-action="Delete" asp-controller="Movies" asp-route-id="@item.id"><button class="btn btn-danger">Delete</button></a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+    <script type="text/javascript" src="/AssetAdmin/js/demo/datatables-demo.js"></script>
+}
